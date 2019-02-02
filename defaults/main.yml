@@ -3,3 +3,4 @@
 prometheus_version: "2.3.2"
 prometheus_ip: "0.0.0.0"
 prometheus_port: "9090"
+base_download_url: "https://github.com/prometheus/prometheus/releases/download"

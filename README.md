@@ -20,6 +20,7 @@ The role variables are defined in the **defaults**. So there is not so many vari
 prometheus_version: "2.3.2"
 prometheus_ip: "0.0.0.0"
 prometheus_port: "9090"
+base_download_url: "https://github.com/prometheus/prometheus/releases/download"
 ```
 You can define any prometheus version that you want to install on your server.
 
@@ -28,6 +29,7 @@ You can define any prometheus version that you want to install on your server.
 |prometheus_version | Prometheus will be downloaded from github releases, so you have to define version in [defaults]|
 |prometheus_ip | IP of the server on which prometheus will expose its UI |
 |prometheus_port | Port no. of server on which prometheus should listen |
+|base_download_url | Base url of prometheus release |
 
 ## Dependencies
 None :-)

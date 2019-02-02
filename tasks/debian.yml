@@ -16,7 +16,7 @@
 
 - name: Setting internal variables for convinience
   set_fact:
-    prometheus_url: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
+    prometheus_url: "{{ base_download_url }}/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
 
 - name: Downloading the binary file for Prometheus
   unarchive:

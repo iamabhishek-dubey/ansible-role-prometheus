@@ -6,7 +6,7 @@
 
 - name: Setting internal variables for convinience
   set_fact:
-    prometheus_url: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
+    prometheus_url: "{{ base_download_url }}/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
 
 - name: Download and install unzip
   yum:
@@ -21,6 +21,10 @@
   yum:
     name: systemd
     state: present
+  register: task_result
+  until: task_result is succeeded
+  retries: 5
+  delay: 5
   when:
     ansible_distribution_major_version == "7"
 
