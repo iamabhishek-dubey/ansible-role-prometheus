@@ -1,0 +1,50 @@
+---
+- name: Updating the repo and cache
+  apt:
+    update_cache: yes
+
+- name: Creating service user
+  user:
+   name: prometheus
+   shell: /bin/false
+
+- name: Download and install unzip and Systemd
+  apt:
+    name: ['unzip', 'systemd']
+    state: present
+  
+- name: Downloading the binary file for Prometheus
+  unarchive:
+    src: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
+    dest: /opt/
+    remote_src: yes
+
+- name: Move the binary executable file
+  copy: 
+    src: /opt/prometheus-{{ prometheus_version }}.linux-amd64/prometheus
+    dest: /usr/bin/
+    mode: 0555
+    remote_src: yes
+
+- name: Create directory for Prometheus Configuration and for Data dump
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: prometheus
+    group: prometheus
+  with_items:
+    - /etc/prometheus
+    - /var/lib/prometheus
+
+- name: Adding Prometheus Configuration
+  template:
+    src: prometheus.yml.j2
+    dest: /etc/prometheus/prometheus.yml
+
+- name: Copy Service for Prometheus
+  template:
+    src: prometheus.service.j2
+    dest: /etc/systemd/system/prometheus.service
+  notify:
+    - reload_prometheus_service
+    - restart_prometheus_service

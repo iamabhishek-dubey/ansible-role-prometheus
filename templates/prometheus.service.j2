@@ -1,0 +1,16 @@
+[Unit]
+Description=Prometheus Server Service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+ExecStart=/usr/bin/prometheus \
+    --config.file /etc/prometheus/prometheus.yml \
+    --storage.tsdb.path /var/lib/prometheus/ \
+    --web.listen-address="{{ prometheus_ip }}:{{ prometheus_port }}"
+
+[Install]
+WantedBy=multi-user.target
