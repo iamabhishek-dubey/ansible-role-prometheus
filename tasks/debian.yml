@@ -1,28 +1,33 @@
 ---
-- name: Updating the repo and cache
+- name: Updating cache and installing systemd and unzip
   apt:
     update_cache: yes
+    name: ['unzip', 'systemd']
+    state: present
+  register: task_result
+  until: task_result is succeeded
+  retries: 5
+  delay: 5
 
-- name: Creating service user
+- name: Creating user for prometheus
   user:
    name: prometheus
    shell: /bin/false
 
-- name: Download and install unzip and Systemd
-  apt:
-    name: ['unzip', 'systemd']
-    state: present
-  
+- name: Setting internal variables for convinience
+  set_fact:
+    prometheus_url: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
+
 - name: Downloading the binary file for Prometheus
   unarchive:
-    src: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-amd64.tar.gz"
-    dest: /opt/
+    src: "{{ prometheus_url }}"
+    dest: /tmp/
     remote_src: yes
 
 - name: Move the binary executable file
-  copy: 
-    src: /opt/prometheus-{{ prometheus_version }}.linux-amd64/prometheus
-    dest: /usr/bin/
+  copy:
+    src: /tmp/prometheus-{{ prometheus_version }}.linux-amd64/prometheus
+    dest: /usr/local/bin/
     mode: 0555
     remote_src: yes
 
