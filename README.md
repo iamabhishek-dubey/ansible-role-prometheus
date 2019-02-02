@@ -1,6 +1,7 @@
 # Ansible Role: Prometheus
 
 Prometheus is an opensource monitoring solution that gathers time series based numerical data. It is a project which was started by Google’s ex-employees at SoundCloud.
+
 To monitor your services and infra with prometheus your service need to expose an endpoint in the form of port or url. For ex:- {{ localhost:9090 }}. The endpoint is HTTP interface that exposes the metrics.
 
 ## Requirements
@@ -21,6 +22,7 @@ prometheus_ip: "0.0.0.0"
 prometheus_port: "9090"
 ```
 You can define any prometheus version that you want to install on your server.
+
 |Variable | Description|
 |---------|------------|
 |prometheus_version | Prometheus will be downloaded from github releases, so you have to define version in [defaults](https://gitlab.com/oosm/osm_prometheus/tree/master/defaults) |
