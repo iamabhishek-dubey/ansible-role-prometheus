@@ -20,31 +20,10 @@ There is no mandatory variables needed.
 |version|2.3.2|Prometheus server version|
 |prometheus_ip|0.0.0.0|Default IP which binds with Prometheus|
 |prometheus_port|9090|Default port number on which Prometheus listens|
-|base_download_url|https://github.com/prometheus/prometheus/releases/download| Base URL of Prometheus release
 
 ## Dependencies
 None :-)
 
-## Directory Structure
-Directory structure:-
-```bash
-osm_prometheus
-├── defaults
-│   └── main.yml
-├── handlers
-│   └── main.yml
-├── hosts
-├── README.md
-├── site.yml
-├── tasks
-│   ├── debian.yml
-│   ├── main.yml
-│   └── redhat.yml
-└── templates
-    ├── prometheus.init.j2
-    ├── prometheus.service.j2
-    └── prometheus.yml.j2
-```
 ## Example Playbook
 Here is an example playbook for running this role
 ```yaml
