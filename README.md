@@ -25,7 +25,7 @@ You can define any prometheus version that you want to install on your server.
 
 |Variable | Description|
 |---------|------------|
-|prometheus_version | Prometheus will be downloaded from github releases, so you have to define version in [defaults](https://gitlab.com/oosm/osm_prometheus/tree/master/defaults) |
+|prometheus_version | Prometheus will be downloaded from github releases, so you have to define version in [defaults]|
 |prometheus_ip | IP of the server on which prometheus will expose its UI |
 |prometheus_port | Port no. of server on which prometheus should listen |
 
